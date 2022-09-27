@@ -1,0 +1,38 @@
+.btn {
+  outline: none;
+  border: none;
+  background-color: inherit;
+  padding: 8px 24px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+}
+
+.btn-blue {
+  background: #3782da;
+  color: #fff;
+
+  &:hover {
+    background: #3289ec;
+  }
+  &:focus {
+    outline: 1px solid #3289ec;
+    outline-offset: 3px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+.btn-large {
+  padding: 20px 20px;
+}
+
+.btn-loading {
+  span {
+    opacity: 0;
+  }
+}
