@@ -3,16 +3,27 @@ import g from "Src/App.module.scss";
 import RegisterModalForm from "Src/components/RegisterModalForm";
 import { useState } from "react";
 import Button from "Src/components/Button";
+import LoginModalForm from "Src/components/LoginModalForm";
 
 const Header = () => {
   const [isRegisterModalOpened, setIsRegisterModalOpened] = useState(false);
+  const [isLoginModalOpened, setIsLoginModalOpened] = useState(false);
 
-  function openModal() {
+  function openRegisterModal() {
+    setIsLoginModalOpened(false);
     setIsRegisterModalOpened(true);
   }
 
-  function closeModal() {
+  function closeRegisterModal() {
     setIsRegisterModalOpened(false);
+  }
+
+  function openLoginModal() {
+    setIsLoginModalOpened(true);
+  }
+
+  function closeLoginModal() {
+    setIsLoginModalOpened(false);
   }
 
   return (
@@ -24,12 +35,20 @@ const Header = () => {
           <nav className={s.navbar}>
             <ul className={s.navbarList}>
               <li className={s.navbarItem}>
-                <Button className={g.btn}>Регистрация</Button>
+                <Button className={g.btn} onClick={openRegisterModal}>
+                  Регистрация
+                </Button>
+
+                <LoginModalForm
+                  isOpen={isLoginModalOpened}
+                  onClose={closeLoginModal}
+                  onCallRegisterModal={openRegisterModal}
+                />
               </li>
               <li className={s.navbarItem}>
                 <Button
                   className={`${g.btn} ${g.btnBlue} ${g.btnBordered}`}
-                  onClick={openModal}
+                  onClick={openLoginModal}
                   color="blue"
                 >
                   Войти
@@ -37,7 +56,7 @@ const Header = () => {
 
                 <RegisterModalForm
                   isOpen={isRegisterModalOpened}
-                  onClose={closeModal}
+                  onClose={closeRegisterModal}
                 />
               </li>
             </ul>
