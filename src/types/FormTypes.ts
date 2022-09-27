@@ -1,11 +1,11 @@
 export interface LoginFormTypes {
   email: string;
   password: string;
+  fromServer: string;
   [params: string]: any;
 }
 
 export interface RegisterFormTypes {
-  name: string;
   email: string;
   password: string;
   password_confirmation: string;
