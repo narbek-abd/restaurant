@@ -1,0 +1,51 @@
+.seachbar {
+  padding: 48px 0 82px 0;
+}
+
+.seachTitle {
+  font-size: 42px;
+  line-height: 44px;
+  color: #fff;
+}
+
+.seachbox {
+  margin-top: 29px;
+  padding: 35px 45px 35px 35px;
+  background: #f9fafb;
+  box-shadow: -30px 20px 70px rgba(28, 28, 30, 0.1);
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.seachInputWrapper {
+  width: 410px;
+  max-height: 58px;
+  position: relative;
+  svg {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 21px;
+    padding: 4px;
+    width: 24px;
+    height: 24px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.seachBtn {
+  button {
+    min-width: 200px;
+  }
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
