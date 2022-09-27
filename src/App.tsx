@@ -2,6 +2,7 @@ import "./App.scss";
 import Header from "./containers/Header";
 import Seachbar from "./containers/Seachbar";
 import g from "./App.module.scss"
+import FeaturedRestaurants from "./containers/FeaturedRestaurants";
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
         <Header />
         <Seachbar />
       </div>
+
+      <FeaturedRestaurants />
     </>
   );
 }

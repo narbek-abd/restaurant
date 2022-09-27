@@ -1,0 +1,35 @@
+.product {
+  filter: drop-shadow(-30px 30px 60px rgba(28, 28, 30, 0.1));
+  color: #424f5e;
+  background: #f9fafb;
+  border-radius: 25px;
+}
+.productInf {
+  padding: 20px 20px 30px 30px;
+  p {
+    margin-top: 12px;
+  }
+}
+
+.productBtn {
+  margin-top: 40px;
+}
+
+.productName {
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.productPrice {
+font-size: 20px;
+line-height: 20px;
+}
+
+
+.productAddress {
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right: 8px;
+    }
+}
