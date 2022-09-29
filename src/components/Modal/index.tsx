@@ -51,6 +51,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         (previousActiveElem as HTMLElement).focus();
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   return ReactDOM.createPortal(
