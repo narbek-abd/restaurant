@@ -1,0 +1,21 @@
+.header {
+  font-family: "Roboto-Regular";
+  font-size: 18px;
+  line-height: 20px;
+  color: #9494a0;
+  box-shadow: -20px 20px 50px rgba(28, 28, 30, 0.05);
+  border-radius: 0px 0px 20px 20px;
+  background-color: #fff;
+}
+
+.headerInner {
+  display: flex;
+  height: 74px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbarList {
+  display: flex;
+  list-style: none;
+}
