@@ -6,8 +6,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterFormTypes } from "Src/types/FormTypes";
 import { RegisterFormValidation } from "Src/validation";
-import { useState } from "react";
 import Button from "../Button";
+import { useAppDispatch, useAppSelector } from "Src/store";
+import { registerUser } from "Src/store/actions/User";
 
 interface RegisterModalFormProps {
   isOpen: boolean;
@@ -15,7 +16,8 @@ interface RegisterModalFormProps {
 }
 
 const RegisterModalForm = ({ isOpen, onClose }: RegisterModalFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.user);
 
   const {
     register,
@@ -29,10 +31,9 @@ const RegisterModalForm = ({ isOpen, onClose }: RegisterModalFormProps) => {
   const onSubmit: SubmitHandler<RegisterFormTypes> = async (
     registrationData
   ) => {
-    setIsLoading(true);
-
     try {
-      //   await dispatch(registerUser(registrationData));
+      await dispatch(registerUser(registrationData));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (e.response.status === 422) {
         Object.keys(e.response.data.errors).forEach((key) => {
@@ -42,10 +43,9 @@ const RegisterModalForm = ({ isOpen, onClose }: RegisterModalFormProps) => {
           });
         });
       }
-    } finally {
-      setIsLoading(false);
     }
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={s.registerModal}>
@@ -79,9 +79,12 @@ const RegisterModalForm = ({ isOpen, onClose }: RegisterModalFormProps) => {
                     aria-invalid={errors[input.name] ? "true" : "false"}
                   />
 
-                  {errors.email && (
+                  {errors[input.name] && (
                     <span className={g.err} role="alert">
-                      {errors.email.message}
+                      {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        (errors[input.name] as any).message
+                      }
                     </span>
                   )}
                 </div>
@@ -108,7 +111,12 @@ const RegisterModalForm = ({ isOpen, onClose }: RegisterModalFormProps) => {
               )}
             </div>
 
-            <Button type="submit" color="blue" size="large" isLoading={true}>
+            <Button
+              type="submit"
+              color="blue"
+              size="large"
+              isLoading={loading === "pending"}
+            >
               Далее
             </Button>
           </>

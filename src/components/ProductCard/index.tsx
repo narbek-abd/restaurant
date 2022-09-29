@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {product.coords.address_name}
         </p>
         <p>{product.description}</p>
-        <p className={s.productPrice}>от $56 000 000</p>
+        <p className={s.productPrice}>{product.price}</p>
 
         <div className={s.productBtn}>
           <Button color="blue">Подробнее</Button>

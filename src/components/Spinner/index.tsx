@@ -3,6 +3,7 @@ import s from "./style.module.scss";
 
 interface SpinnerProps {
   variant?: "default" | "button";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [params: string]: any;
 }
 

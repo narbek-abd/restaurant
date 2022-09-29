@@ -6,8 +6,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginFormTypes } from "Src/types/FormTypes";
 import { LoginFormValidation } from "Src/validation";
-import { useState } from "react";
 import Button from "../Button";
+import { useAppDispatch, useAppSelector } from "Src/store";
+import { loginUser } from "Src/store/actions/User";
 
 interface LoginModalFormProps {
   isOpen: boolean;
@@ -20,7 +21,8 @@ const LoginModalForm = ({
   onClose,
   onCallRegisterModal,
 }: LoginModalFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.user);
 
   const {
     register,
@@ -31,13 +33,12 @@ const LoginModalForm = ({
     resolver: yupResolver(LoginFormValidation),
   });
 
-  const onSubmit: SubmitHandler<LoginFormTypes> = async (registrationData) => {
-    setIsLoading(true);
-
+  const onSubmit: SubmitHandler<LoginFormTypes> = async (loginData) => {
     try {
-      //   await dispatch(registerUser(registrationData));
+      await dispatch(loginUser(loginData)).unwrap();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      if (e.response.status === 422) {
+      if (e.response?.status === 422) {
         Object.keys(e.response.data.errors).forEach((key) => {
           setError(key, {
             type: "fromServer",
@@ -45,8 +46,6 @@ const LoginModalForm = ({
           });
         });
       }
-    } finally {
-      setIsLoading(false);
     }
   };
   return (
@@ -73,13 +72,16 @@ const LoginModalForm = ({
                     type={input.type}
                     placeholder={input.placeholder}
                     {...register(input.name)}
-                    // autoComplete={input.name}
+                    autoComplete={input.name}
                     aria-invalid={errors[input.name] ? "true" : "false"}
                   />
 
                   {errors[input.name] && (
                     <span className={g.err} role="alert">
-                      {(errors[input.name] as any).message}
+                      {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        (errors[input.name] as any).message
+                      }
                     </span>
                   )}
                 </div>
@@ -91,7 +93,7 @@ const LoginModalForm = ({
                 type="submit"
                 color="blue"
                 size="large"
-                isLoading={isLoading}
+                isLoading={loading === "pending"}
               >
                 Войти
               </Button>

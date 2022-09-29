@@ -6,8 +6,7 @@ export const LoginFormValidation = yup.object().shape({
 });
 
 export const RegisterFormValidation = yup.object().shape({
-  name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(3).required(),
-  password_confirmation: yup.string().min(3).required(),
+  password_confirm: yup.string().min(3).required(),
 });
