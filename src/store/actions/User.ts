@@ -6,7 +6,7 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (registerData: RegisterFormTypes) => {
     const response = await api.users.registerUser(registerData);
-    localStorage.setItem("access-token", response.data.accessToken);
+    _setTokenToStorage(response.data.accessToken);
     return response.data;
   }
 );
@@ -15,22 +15,22 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async (loginData: LoginFormTypes) => {
     const response = await api.users.loginUser(loginData);
-    localStorage.setItem("access-token", response.data.accessToken);
+    _setTokenToStorage(response.data.accessToken);
     return response.data;
   }
 );
 
 export const logoutUser = createAsyncThunk("user/logout", async () => {
-  let responcse = await api.users.logoutUser();
-
-  localStorage.removeItem("access-token");
-
-  return responcse.data;
+  return localStorage.removeItem("access-token");
 });
 
 export const getUser = createAsyncThunk("user/get", async () => {
   const response = await api.users.getCurrentUser();
-  localStorage.setItem("access-token", response.data.accessToken);
+  _setTokenToStorage(response.data.accessToken);
 
   return response.data;
 });
+
+function _setTokenToStorage(accessToken: string) {
+  localStorage.setItem("access-token", accessToken);
+}
