@@ -39,7 +39,6 @@ export const userReducer = createSlice({
 
       // Login
       .addCase(loginUser.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.isAuth = true;
         state.email = payload.email;
         state.name = payload.name;
