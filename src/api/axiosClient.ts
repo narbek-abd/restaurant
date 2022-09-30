@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from ".";
 
 const axiosClient = axios.create({
   baseURL: `http://188.225.83.80:6719/api/v1/`,
@@ -28,9 +29,7 @@ axiosClient.interceptors.response.use(
       initialRequest._times = 1;
 
       try {
-        const response = await axiosClient(`/refresh`, {
-          withCredentials: true,
-        });
+        const response = await api.users.refreshToken();
 
         localStorage.setItem("access-token", response.data.accessToken);
         return axiosClient.request(initialRequest);
